@@ -2,10 +2,10 @@ package plot
 
 import (
 	"fmt"
+	"image/color"
 
 	pp "gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
-	"gonum.org/v1/plot/plotutil"
 	"gonum.org/v1/plot/vg"
 )
 
@@ -41,6 +41,11 @@ func (p *Line) Save(output string) error {
 		return err
 	}
 
+	plt.Y.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+	plt.Y.Tick.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+	plt.X.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+	plt.X.Tick.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+
 	plt.Title.Text = p.Title
 	plt.Y.Label.Text = "data"
 	if p.yLabel != "" {
@@ -57,9 +62,18 @@ func (p *Line) Save(output string) error {
 		points[i].Y = p.Value[i]
 	}
 
-	if err = plotutil.AddLines(plt, points); err != nil {
+	// Color自動設定: R:255
+	// if err = plotutil.AddLines(plt, points); err != nil {
+	// 	return err
+	// }
+
+	l, err := plotter.NewLine(points)
+	if err != nil {
 		return err
 	}
+	// #82b1ff blue accent-1
+	l.Color = color.RGBA{R: 130, G: 177, B: 255, A: 255}
+	plt.Add(l)
 
 	if err := plt.Save(4*vg.Inch, 3*vg.Inch, output); err != nil {
 		return err
@@ -101,6 +115,11 @@ func (p *Scatter) Save(output string) error {
 		return err
 	}
 
+	plt.Y.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+	plt.Y.Tick.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+	plt.X.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+	plt.X.Tick.Color = color.RGBA{R: 189, G: 189, B: 189, A: 255}
+
 	plt.Title.Text = p.Title
 	plt.Y.Label.Text = "data_y"
 	if p.yLabel != "" {
@@ -117,7 +136,19 @@ func (p *Scatter) Save(output string) error {
 		points[i].Y = p.yValue[i]
 	}
 
-	if err = plotutil.AddScatters(plt, points); err != nil {
+	// if err = plotutil.AddScatters(plt, points); err != nil {
+	// 	return err
+	// }
+
+	l, err := plotter.NewScatter(points)
+	if err != nil {
+		return err
+	}
+	// #82b1ff blue accent-1
+	l.Color = color.RGBA{R: 130, G: 177, B: 255, A: 255}
+	plt.Add(l)
+
+	if err := plt.Save(4*vg.Inch, 3*vg.Inch, output); err != nil {
 		return err
 	}
 
