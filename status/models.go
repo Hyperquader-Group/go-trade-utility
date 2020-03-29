@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"sync"
+	"time"
 )
 
 const (
@@ -18,13 +19,19 @@ type OrderStates struct {
 	orderSize     float64
 	executionSize float64
 
+	// 時間
+	start time.Time
+
 	// 注文と約定回数
 	count      int
 	executions int
 }
 
 func New() *OrderStates {
-	return &OrderStates{}
+	return &OrderStates{
+
+		start: time.Now(),
+	}
 }
 
 func (p *OrderStates) Set(t int, f float64) {
@@ -51,6 +58,7 @@ func (p *OrderStates) Reset() {
 	p.count = 0
 	p.executionSize = 0
 	p.executions = 0
+	p.start = time.Now()
 }
 
 func (p *OrderStates) Rate() (countRate, sizeRate float64) {
@@ -66,7 +74,9 @@ func (p *OrderStates) String() string {
 
 	return fmt.Sprintf(
 		`注文回数: %d, 約定回数: %d, 約定率: %.2f％
-注文枚数: %f, 約定枚数: %f, 約定率: %.2f％`,
+注文枚数: %f, 約定枚数: %f, 約定率: %.2f％
+集計開始: %s`,
 		p.count, p.executions, math.Max(0, p.orderSize/p.executionSize)*100,
-		p.orderSize, p.executionSize, math.Max(0, float64(p.count)/float64(p.executions))*100)
+		p.orderSize, p.executionSize, math.Max(0, float64(p.count)/float64(p.executions))*100,
+		p.start.Format("2006/01/02 15:04:05"))
 }
