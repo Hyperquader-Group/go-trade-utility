@@ -1,4 +1,4 @@
-package OrderStates
+package status
 
 import (
 	"fmt"
