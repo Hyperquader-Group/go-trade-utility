@@ -23,6 +23,10 @@ type OrderStates struct {
 	executions int
 }
 
+func New() *OrderStates {
+	return &OrderStates{}
+}
+
 func (p *OrderStates) Set(t int, f float64) {
 	p.Lock()
 	defer p.Unlock()
