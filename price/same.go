@@ -10,6 +10,7 @@ import (
 	"sync"
 )
 
+// Checker 同価格帯のKeyを作る関数
 type Checker func(prefix interface{}, f float64) string
 type Checksum struct {
 	F      Checker
