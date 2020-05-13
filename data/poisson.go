@@ -64,7 +64,7 @@ func (p *Values) Threshold(isReverse bool, prob float64) float64 {
 
 	// 累積確率から得たい出現回数の余事象を捨てる
 	point := int(math.Floor(float64(len(p.values)) * prob))
-	if len(p.values) < point+1 {
+	if len(p.values) <= point+1 {
 		return 0
 	}
 	return p.values[point+1]
