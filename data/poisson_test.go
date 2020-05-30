@@ -34,6 +34,6 @@ func TestPoisson(t *testing.T) {
 	}
 
 	start := time.Now()
-	fmt.Printf("%+v\n", s.Threshold(true, 0.5))
+	fmt.Printf("%+v\n", s.Threshold(true, 0.1))
 	fmt.Printf("%+v\n", time.Since(start))
 }
