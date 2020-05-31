@@ -42,6 +42,7 @@ func (p *Values) Reset() {
 	// n-1分は保持
 	// Reset直後の0値を除くため
 	if len(p.values) == p.length {
+		p.length = 0
 		return
 	}
 	l := len(p.values) - p.length
