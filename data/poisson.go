@@ -45,9 +45,10 @@ func (p *Values) Reset() {
 		p.length = 0
 		return
 	}
-	l := len(p.values) - p.length
+	// 先入れ後出しで減らしていく
+	p.values = p.values[p.length:]
 	p.length = 0
-	p.values = p.values[l:]
+
 }
 
 func (p *Values) Threshold(isReverse bool, prob float64) float64 {
