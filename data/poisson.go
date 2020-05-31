@@ -32,7 +32,15 @@ func (p *Values) Set(value float64) {
 }
 
 func (p *Values) Len() int {
+	p.mux.RLock()
+	defer p.mux.RUnlock()
 	return p.length
+}
+
+func (p *Values) ValueLen() int {
+	p.mux.RLock()
+	defer p.mux.RUnlock()
+	return len(p.values)
 }
 
 func (p *Values) Reset() {
