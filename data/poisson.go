@@ -31,6 +31,10 @@ func (p *Values) Set(value float64) {
 	p.values = append(p.values, value)
 }
 
+func (p *Values) Len() int {
+	return p.length
+}
+
 func (p *Values) Reset() {
 	p.mux.Lock()
 	defer p.mux.Unlock()
