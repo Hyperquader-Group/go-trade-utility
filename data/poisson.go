@@ -83,3 +83,10 @@ func (p *Values) Threshold(isReverse bool, prob float64) float64 {
 	}
 	return p.values[point+1]
 }
+
+func (p *Values) Copy() []float64 {
+	p.mux.RLock()
+	defer p.mux.RUnlock()
+
+	return p.values
+}
