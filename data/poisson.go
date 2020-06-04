@@ -66,7 +66,8 @@ func (p *Values) Threshold(isReverse bool, prob float64) float64 {
 		return 0
 	}
 
-	fx := p.values
+	fx := make([]float64, len(p.values))
+	copy(fx, p.values)
 	if isReverse {
 		sort.Sort(sort.Reverse(sort.Float64Slice(fx)))
 	} else {
