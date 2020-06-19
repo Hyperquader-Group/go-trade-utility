@@ -76,7 +76,7 @@ func (p *OrderStates) String() string {
 		`注文回数: %d, 約定回数: %d, 約定率: %.2f％
 注文枚数: %f, 約定枚数: %f, 約定率: %.2f％
 集計開始: %s`,
-		p.count, p.executions, math.Max(0, float64(p.executions)/float64(p.count)), *100,
+		p.count, p.executions, math.Max(0, float64(p.executions)/float64(p.count))*100,
 		p.orderSize, p.executionSize, math.Max(0, p.executionSize/p.orderSize)*100,
 		p.start.Format("2006/01/02 15:04:05"))
 }
