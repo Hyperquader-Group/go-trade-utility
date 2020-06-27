@@ -92,3 +92,33 @@ func (p *Values) Copy() []float64 {
 
 	return p.values
 }
+
+// Predict 出現率とスプレッドから最大利益を得る約定率を返す
+func (p *Values) Predict() (ex, profit float64) {
+	p.mux.RLock()
+	defer p.mux.RUnlock()
+
+	var (
+		count = len(p.values)
+		fx    = make([]float64, count)
+
+		base = 1 / float64(count)
+	)
+	for i := 0; i < count; i++ {
+		ratio := float64(i) * base
+		spread := p.Threshold(true, ratio)
+		fx[i] = spread * ratio
+	}
+
+	var (
+		maxLength int
+	)
+	for i := range fx {
+		if profit < fx[i] {
+			profit = fx[i]
+			maxLength = i
+		}
+	}
+
+	return float64(maxLength) * base, profit
+}
